@@ -1,4 +1,5 @@
 //** Password Strength Checker (Developed by Syed Shahroz Ali) **//
+
 // Libraries
 #include<stdio.h>
 #include<stdlib.h>
@@ -108,29 +109,54 @@ int main(int argc, char *argv[])
         counter++;
     }
 
+    // String to store strength of the password
+    char *strength;
+
     // Prints the strength of the password
     printf("Strength:  ");
     if (counter == 5)
     {
+        strength = "Strong";
         printf("Strong\n");
     }
     if (counter >= 3 && counter < 5)
     {
+        strength = "Good";
         printf("Good\n");
     }
     if (counter <= 2)
     {
+        strength = "Weak";
         printf("Weak\n");
     }
 
-    printf("\n");
+    // Print to check for .txt file
+    printf("Please check the source directory and see the text file for more details.\n");
+
+    // Open file in write mode
+    FILE *fp = fopen("password-check.txt", "w");
+
+    // If returns NULL
+    if (!fp)
+    {
+        printf("File could not be created...\n");
+        fclose(fp);
+        return 1;
+    }
+
+    // Start writing to the file
+    fprintf(fp, "Developed By Syed Shehroz Ali\n\n");
+
+    // Print password and strength
+    fprintf(fp, "Your Password: %s\n", password);
+    fprintf(fp, "Strength: %s\n\n", strength);
 
     // Summary of total possible combinations
-    printf("-----| SUMMARY |----- \n");
-    printf("Digits %i: %lli\n", total_digits, n);
-    printf("Lowercase %i: %lli\n", total_lowercase, l);
-    printf("Uppercase %i: %lli\n", total_uppercase, u);
-    printf("Special Characters %i: %lli\n", total_symbols, s);
+    fprintf(fp, "-----| SUMMARY |----- \n");
+    fprintf(fp, "Digits %i: %lli\n", total_digits, n);
+    fprintf(fp, "Lowercase %i: %lli\n", total_lowercase, l);
+    fprintf(fp, "Uppercase %i: %lli\n", total_uppercase, u);
+    fprintf(fp, "Special Characters %i: %lli\n", total_symbols, s);
 
     printf("\n");
 
@@ -138,36 +164,39 @@ int main(int argc, char *argv[])
     int serialno = 1;
 
     // Comments/sugestions
-    printf("-----| COMMENTS |----- \n");
+    fprintf(fp, "-----| COMMENTS |----- \n");
     if (length < 12)
     {
-        printf("%i.Try adding more characters (12 recommended)\n", serialno);
+        fprintf(fp ,"%i.Try adding more characters (12 recommended)\n", serialno);
         serialno++;
     }
     if (total_digits == 0)
     {
-        printf("%i.Try adding atleast one digit\n", serialno);
+        fprintf(fp, "%i.Try adding atleast one digit\n", serialno);
         serialno++;
     }
     if (total_lowercase == 0)
     {
-        printf("%i.Try adding atleast one lowercase\n", serialno);
+        fprintf(fp, "%i.Try adding atleast one lowercase\n", serialno);
         serialno++;
     }
     if (total_uppercase == 0)
     {
-        printf("%i.Try adding atleast one uppercase\n", serialno);
+        fprintf(fp, "%i.Try adding atleast one uppercase\n", serialno);
         serialno++;
     }
     if (total_symbols == 0)
     {
-        printf("%i.Try adding atleast one special character\n", serialno);
+        fprintf(fp, "%i.Try adding atleast one special character\n", serialno);
         serialno++;
     }
     if (counter == 5)
     {
-        printf("Safe!\n");
+        fprintf(fp, "Safe!\n");
     }
+
+    // End the program
+    fclose(fp);
     return 0;
 }
 
