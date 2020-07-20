@@ -13,7 +13,8 @@
   <li>Compile the code.</li>
   <li>Run the code along with your password (be sure to be alone when no one is around you) for e.g. [run_command] hackr123!</li>
   <li>If you type the command line argument wrong then you will be warned.</li>
-  <li>The program prints the output on the terminal window as well as generates a text file (.txt) in the output source directory</li>
-  <li>Download the .txt file from the source directory.</li>
+  <li>Read the output on the terminal window.</li>
+  <li>On success the program generates a text file (.txt) in the output source directory which contains information about your password.</li>
+  <li>Download the .txt file from the source directory to check the summary of your password.</li>
   </li>
 </ul>
